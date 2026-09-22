@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Keshav Batla — AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080B14;
+      --bg2:       #0E1220;
+      --bg3:       #141926;
+      --accent:    #7C5CFC;
+      --accent2:   #A688FA;
+      --accent-glow: rgba(124,92,252,0.18);
+      --text:      #E8EAF0;
+      --muted:     #7A8099;
+      --border:    rgba(124,92,252,0.18);
+      --font-head: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(8,11,20,0.75);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--accent2);
+      letter-spacing: 0.04em;
+    }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      font-family: var(--font-body);
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 110px 64px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,92,252,0.10) 0%, transparent 70%);
+      top: -80px; right: 60px;
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 80px;
+      align-items: center;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--accent);
+    }
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(38px, 5vw, 68px);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+    h1 span.accent { color: var(--accent2); }
+
+    .terminal-block {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+      max-width: 480px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+    .terminal-block .prompt { color: var(--accent); }
+    .terminal-block .val { color: #A8D8A8; }
+    .terminal-block .key { color: var(--accent2); }
+    #typed-cursor {
+      display: inline-block;
+      width: 8px; height: 14px;
+      background: var(--accent);
+      vertical-align: middle;
+      animation: blink 1s step-end infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent2); transform: translateY(-1px); }
+
+    /* ── AGENT GRAPH CARD ── */
+    .agent-graph {
+      background: var(--bg2);
+      border: 1px solid rgba(124,92,252,0.22);
+      border-radius: 16px;
+      padding: 22px 20px 18px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(124,92,252,0.09), 0 0 0 1px rgba(124,92,252,0.06);
+    }
+    .agent-graph::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% -10%, rgba(124,92,252,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* header */
+    .ag-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(124,92,252,0.12);
+    }
+    .ag-title {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+    }
+    .ag-status {
+      display: flex; align-items: center; gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: #64C878;
+      letter-spacing: 0.06em;
+    }
+    .ag-status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #64C878;
+      box-shadow: 0 0 6px rgba(100,200,120,0.8);
+      animation: pulse-g 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse-g {
+      0%,100% { opacity:1; box-shadow: 0 0 6px rgba(100,200,120,0.8); }
+      50%      { opacity:0.5; box-shadow: 0 0 2px rgba(100,200,120,0.3); }
+    }
+
+    /* body */
+    .ag-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── nodes ── */
+    .ag-node {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      border-radius: 8px;
+      border: 1px solid rgba(124,92,252,0.22);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 9px 18px;
+      background: var(--bg3);
+      transition: box-shadow 0.4s, border-color 0.4s;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      text-align: center;
+    }
+    .ag-node.manager {
+      background: linear-gradient(135deg, rgba(124,92,252,0.16) 0%, rgba(124,92,252,0.05) 100%);
+      border-color: rgba(124,92,252,0.45);
+      color: var(--accent2);
+      font-size: 11px;
+      padding: 11px 20px;
+    }
+    .ag-node.eval {
+      background: linear-gradient(135deg, rgba(255,190,60,0.07) 0%, transparent 100%);
+      border-color: rgba(255,190,60,0.28);
+      color: #FFBE3C;
+    }
+    .ag-node.approval {
+      background: linear-gradient(135deg, rgba(100,200,120,0.07) 0%, transparent 100%);
+      border-color: rgba(100,200,120,0.28);
+      color: #64C878;
+    }
+    .ag-node.send-node {
+      background: linear-gradient(135deg, rgba(124,92,252,0.10) 0%, transparent 100%);
+      border-color: rgba(124,92,252,0.30);
+      color: var(--accent2);
+    }
+    /* glow states applied by JS */
+    .ag-node.glow-purple { box-shadow: 0 0 16px rgba(124,92,252,0.30); border-color: rgba(124,92,252,0.7); }
+    .ag-node.glow-yellow  { box-shadow: 0 0 14px rgba(255,190,60,0.22); border-color: rgba(255,190,60,0.55); }
+    .ag-node.glow-green   { box-shadow: 0 0 14px rgba(100,200,120,0.22); border-color: rgba(100,200,120,0.55); }
+
+    .node-icon { font-size: 12px; flex-shrink: 0; }
+
+    /* ── agents row ── */
+    .ag-agents-row {
+      display: flex;
+      gap: 7px;
+      width: 100%;
+    }
+    .ag-agents-row .ag-node {
+      flex: 1;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 9.5px;
+      padding: 9px 4px 8px;
+      color: var(--text);
+      border-color: rgba(124,92,252,0.18);
+    }
+    .ag-agents-row .ag-node .node-icon { font-size: 13px; }
+
+    /* ── connectors (SVG-based) ── */
+    .ag-connector {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .ag-connector svg { overflow: visible; display: block; }
+
+    /* ── footer ── */
+    .ag-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(124,92,252,0.10);
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .ag-tag {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      color: var(--muted);
+      padding: 3px 8px;
+      border: 1px solid rgba(124,92,252,0.10);
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 96px 48px; }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 16px;
+      letter-spacing: 0.08em;
+    }
+    h2 {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 48px;
+      line-height: 1.15;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--bg); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+    }
+    .project-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-card.featured {
+      grid-column: span 2;
+      background: linear-gradient(135deg, var(--bg2) 0%, rgba(124,92,252,0.06) 100%);
+    }
+    @media (max-width: 780px) { .project-card.featured { grid-column: span 1; } }
+
+    .project-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono); font-size: 11px;
+      padding: 4px 10px; border-radius: 20px; width: fit-content;
+    }
+    .status-live { background: rgba(100,200,120,0.1); color: #64C878; border: 1px solid rgba(100,200,120,0.2); }
+    .status-wip  { background: rgba(255,190,60,0.08); color: #FFBE3C; border: 1px solid rgba(255,190,60,0.2); }
+    .status-dot  { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+    .project-name { font-family: var(--font-head); font-size: 20px; font-weight: 600; color: var(--text); line-height: 1.2; }
+    .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-family: var(--font-mono); font-size: 11px;
+      padding: 4px 10px;
+      background: rgba(124,92,252,0.08); border: 1px solid rgba(124,92,252,0.14);
+      border-radius: 6px; color: var(--accent2);
+    }
+    .project-links { display: flex; gap: 10px; margin-top: 4px; }
+    .project-links .btn { font-size: 13px; padding: 9px 18px; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg3); }
+    .skills-layout {
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 48px; max-width: 900px;
+    }
+    @media (max-width: 640px) { .skills-layout { grid-template-columns: 1fr; } }
+    .skill-category-list { display: flex; flex-direction: column; gap: 4px; }
+    .skill-tab {
+      font-family: var(--font-body); font-size: 14px; color: var(--muted);
+      padding: 10px 16px; border-radius: 8px; cursor: pointer;
+      transition: all 0.15s; border: 1px solid transparent;
+      background: none; text-align: left; font-weight: 500;
+    }
+    .skill-tab:hover { color: var(--text); background: var(--bg2); }
+    .skill-tab.active { color: var(--accent2); background: var(--bg2); border-color: var(--border); }
+    .skill-panel { display: none; }
+    .skill-panel.active { display: block; }
+    .skill-panel h3 { font-family: var(--font-head); font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 16px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .skill-tag {
+      font-size: 13px; padding: 7px 14px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-family: var(--font-body); font-weight: 400;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg); }
+    .about-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; max-width: 960px; align-items: start;
+    }
+    @media (max-width: 720px) { .about-layout { grid-template-columns: 1fr; } }
+    .about-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 16px; }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .about-stats { display: flex; flex-direction: column; gap: 24px; }
+    .stat-row {
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 24px; background: var(--bg2);
+      border: 1px solid var(--border); border-radius: 12px;
+    }
+    .stat-icon {
+      font-size: 24px; width: 44px; height: 44px;
+      background: var(--accent-glow); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .stat-label { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+    .stat-value { font-family: var(--font-head); font-size: 16px; font-weight: 600; color: var(--text); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg3); text-align: center; }
+    #contact h2 { margin-bottom: 16px; }
+    .contact-sub { color: var(--muted); font-size: 15px; max-width: 420px; margin: 0 auto 40px; }
+    .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 48px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+    }
+
+    /* ── SCROLL FADE ── */
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { .fade-in { opacity:1; transform:none; transition:none; } }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; bottom: 32px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--accent2); font-family: var(--font-mono); font-size: 13px;
+      padding: 12px 24px; border-radius: 8px;
+      opacity: 0; transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none; z-index: 999; white-space: nowrap;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      #hero { align-items: flex-start; padding-top: 100px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .nav-links { gap: 20px; }
+      section, #hero { padding: 64px 20px; }
+      footer { padding: 24px 20px; flex-direction: column; gap: 8px; text-align: center; }
+      h1 { font-size: clamp(30px, 8vw, 48px); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">kb.dev</span>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-inner">
+
+    <!-- LEFT: existing copy, untouched -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">Open to AI engineering internships &amp; startup collaborations</div>
+      <h1>
+        Keshav Batla<br />
+        <span class="accent">building AI systems</span><br />
+        from idea to production.
+      </h1>
+      <div class="terminal-block">
+        <div><span class="prompt">›</span> <span class="key">stack</span> = <span class="val">"LangGraph · RAG · Multi-Agent Systems · FastAPI"</span></div>
+        <div><span class="prompt">›</span> <span class="key">focus</span> = <span class="val">"AI agents · LLM applications · Agentic Workflows"</span></div>
+        <div><span class="prompt">›</span> <span class="key">status</span> = <span class="val" id="typed-line"></span><span id="typed-cursor"></span></div>
+      </div>
+      <p class="hero-sub">
+        Third-year CS student at Thapar University building production-oriented AI systems, from multi-agent workflows to deployed RAG applications.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">See projects</a>
+        <a href="#contact" class="btn btn-outline">Get in touch</a>
+        <a href="https://www.linkedin.com/in/keshav-batla-715a38330/" target="_blank" class="btn btn-outline">LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- RIGHT: agent architecture card -->
+    <div class="agent-graph" id="agentGraph">
+      <div class="ag-header">
+        <span class="ag-title">// MULTI-AGENT OUTREACH SYSTEM</span>
+        <span class="ag-status"><span class="ag-status-dot"></span>SYSTEM ACTIVE</span>
+      </div>
+
+      <div class="ag-body">
+
+        <!-- MANAGER -->
+        <div class="ag-node manager" id="nd-manager">
+          <span class="node-icon">⬡</span> MANAGER
+        </div>
+
+        <!-- connector: manager → researcher -->
+        <div class="ag-connector">
+          <svg width="2" height="26" id="svg-m-r">
+            <line x1="1" y1="0" x2="1" y2="26" stroke="rgba(124,92,252,0.35)" stroke-width="1"/>
+            <polygon points="1,26 -3,19 5,19" fill="rgba(124,92,252,0.45)"/>
+            <circle id="sig-m-r" cx="1" cy="0" r="2.5" fill="#A688FA" opacity="0">
+              <filter id="glow-p"><feGaussianBlur stdDeviation="1.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </circle>
+          </svg>
+        </div>
+
+        <!-- RESEARCHER -->
+        <div class="ag-node" id="nd-researcher" style="width:100%; color:var(--text); border-color:rgba(124,92,252,0.22);">
+          <span class="node-icon">🔍</span> RESEARCHER
+          <span style="font-size:8px;color:var(--muted);margin-left:4px;">Tavily · Hunter.io</span>
+        </div>
+
+        <!-- connector: researcher → agents row (fan-out) -->
+        <div class="ag-connector">
+          <svg width="240" height="30" viewBox="0 0 240 30" id="svg-r-agents" style="width:100%; max-width:340px;">
+            <!-- vertical stem -->
+            <line x1="120" y1="0" x2="120" y2="14" stroke="rgba(124,92,252,0.35)" stroke-width="1"/>
+            <!-- horizontal bar -->
+            <line x1="40" y1="14" x2="200" y2="14" stroke="rgba(124,92,252,0.28)" stroke-width="1"/>
+            <!-- left drop -->
+            <line x1="40" y1="14" x2="40" y2="30" stroke="rgba(124,92,252,0.28)" stroke-width="1"/>
+            <polygon points="40,30 36,23 44,23" fill="rgba(124,92,252,0.38)"/>
+            <!-- right drop -->
+            <line x1="200" y1="14" x2="200" y2="30" stroke="rgba(124,92,252,0.28)" stroke-width="1"/>
+            <polygon points="200,30 196,23 204,23" fill="rgba(124,92,252,0.38)"/>
+            <!-- center drop -->
+            <line x1="120" y1="14" x2="120" y2="30" stroke="rgba(124,92,252,0.28)" stroke-width="1"/>
+            <polygon points="120,30 116,23 124,23" fill="rgba(124,92,252,0.38)"/>
+            <!-- signal dot -->
+            <circle id="sig-fanout" cx="120" cy="0" r="2.5" fill="#A688FA" opacity="0"/>
+          </svg>
+        </div>
+
+        <!-- THREE AGENTS ROW -->
+        <div class="ag-agents-row">
+          <div class="ag-node" id="nd-researcher2" style="color:var(--text); border-color:rgba(124,92,252,0.18);">
+            <span class="node-icon">✍️</span>
+            <span>COVER<br/>WRITER</span>
+          </div>
+          <div class="ag-node" id="nd-emailwriter" style="color:var(--text); border-color:rgba(124,92,252,0.18);">
+            <span class="node-icon">📧</span>
+            <span>EMAIL<br/>WRITER</span>
+          </div>
+          <div class="ag-node" id="nd-drafter" style="color:var(--text); border-color:rgba(124,92,252,0.18);">
+            <span class="node-icon">📝</span>
+            <span>EMAIL<br/>DRAFTER</span>
+          </div>
+        </div>
+
+        <!-- connector: agents → evaluation (fan-in) -->
+        <div class="ag-connector">
+          <svg width="240" height="30" viewBox="0 0 240 30" style="width:100%; max-width:340px;">
+            <!-- left rise -->
+            <line x1="40" y1="0" x2="40" y2="16" stroke="rgba(255,190,60,0.25)" stroke-width="1"/>
+            <line x1="40" y1="16" x2="120" y2="16" stroke="rgba(255,190,60,0.25)" stroke-width="1"/>
+            <!-- right rise -->
+            <line x1="200" y1="0" x2="200" y2="16" stroke="rgba(255,190,60,0.25)" stroke-width="1"/>
+            <line x1="200" y1="16" x2="120" y2="16" stroke="rgba(255,190,60,0.25)" stroke-width="1"/>
+            <!-- center stem -->
+            <line x1="120" y1="0" x2="120" y2="16" stroke="rgba(255,190,60,0.25)" stroke-width="1"/>
+            <!-- drop to eval -->
+            <line x1="120" y1="16" x2="120" y2="30" stroke="rgba(255,190,60,0.35)" stroke-width="1"/>
+            <polygon points="120,30 116,23 124,23" fill="rgba(255,190,60,0.45)"/>
+          </svg>
+        </div>
+
+        <!-- EVALUATION -->
+        <div class="ag-node eval" id="nd-eval">
+          <span class="node-icon">⚙️</span> LLM EVALUATION
+        </div>
+
+        <!-- connector: eval → human approval -->
+        <div class="ag-connector">
+          <svg width="2" height="26" id="svg-e-h">
+            <line x1="1" y1="0" x2="1" y2="26" stroke="rgba(100,200,120,0.35)" stroke-width="1"/>
+            <polygon points="1,26 -3,19 5,19" fill="rgba(100,200,120,0.45)"/>
+            <circle id="sig-e-h" cx="1" cy="0" r="2.5" fill="#64C878" opacity="0"/>
+          </svg>
+        </div>
+
+        <!-- HUMAN APPROVAL -->
+        <div class="ag-node approval" id="nd-approval">
+          <span class="node-icon">👤</span> HUMAN APPROVAL
+        </div>
+
+        <!-- connector: approval → send -->
+        <div class="ag-connector">
+          <svg width="2" height="26" id="svg-h-s">
+            <line x1="1" y1="0" x2="1" y2="26" stroke="rgba(124,92,252,0.35)" stroke-width="1"/>
+            <polygon points="1,26 -3,19 5,19" fill="rgba(124,92,252,0.45)"/>
+            <circle id="sig-h-s" cx="1" cy="0" r="2.5" fill="#A688FA" opacity="0"/>
+          </svg>
+        </div>
+
+        <!-- SEND -->
+        <div class="ag-node send-node" id="nd-send">
+          <span class="node-icon">📤</span> SEND VIA GMAIL
+        </div>
+
+      </div><!-- /ag-body -->
+
+      <div class="ag-footer">
+        <span class="ag-tag">LangGraph</span>
+        <span class="ag-tag">LLM Evaluation</span>
+        <span class="ag-tag">Human-in-the-loop</span>
+      </div>
+    </div><!-- /agent-graph -->
+
+  </div><!-- /hero-inner -->
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">// selected work</div>
+  <h2>Things I've built</h2>
+  <div class="projects-grid">
+
+    <div class="project-card featured fade-in">
+      <span class="project-status status-wip"><span class="status-dot"></span>In progress</span>
+      <div class="project-name">Cold Outreach Agent</div>
+      <p class="project-desc">A LangGraph multi-agent system that researches prospects, generates personalized outreach, evaluates drafts, and sends approved emails automatically. Built with Tavily, Hunter.io, Gemini, Gmail API and Google Sheets, with human approval gates and LLM-based evaluation.</p>
+      <div class="project-tags">
+        <span class="tag">LangGraph</span><span class="tag">Multi-agent</span><span class="tag">Tavily</span>
+        <span class="tag">Hunter.io</span><span class="tag">Gmail API</span><span class="tag">Google Sheets</span>
+        <span class="tag">Gemini</span><span class="tag">trustcall</span>
+      </div>
+      <div class="project-links">
+        <button onclick="showToast('Demo is under progress — check back soon!')" class="btn btn-primary">Live demo</button>
+        <a href="https://github.com/KeshavBatla/Cold-Outreach-Agent" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <span class="project-status status-live"><span class="status-dot"></span>Deployed</span>
+      <div class="project-name">RAG Document Q&amp;A</div>
+      <p class="project-desc">Answers questions over user-uploaded documents using LangChain, ChromaDB, HuggingFace embeddings, and Gemini. Deployed on Streamlit Cloud with session isolation and metadata filtering resolved in production.</p>
+      <div class="project-tags">
+        <span class="tag">LangChain</span><span class="tag">ChromaDB</span>
+        <span class="tag">Gemini</span><span class="tag">Streamlit</span><span class="tag">HuggingFace</span>
+      </div>
+      <div class="project-links">
+        <a href="https://rag-document-assistant-kb.streamlit.app/" target="_blank" class="btn btn-primary">Open app</a>
+        <a href="https://github.com/KeshavBatla/RAG-document-assistant" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <span class="project-status status-wip"><span class="status-dot"></span>In progress</span>
+      <div class="project-name">AI Research Agent</div>
+      <p class="project-desc">A LangGraph-based research agent that takes a topic, autonomously plans and runs web searches via Tavily, and synthesises findings into a structured report.</p>
+      <div class="project-tags">
+        <span class="tag">LangGraph</span><span class="tag">Tavily</span>
+        <span class="tag">Gemini</span><span class="tag">Agentic AI</span>
+      </div>
+      <div class="project-links">
+        <button onclick="showToast('Demo is under progress — check back soon!')" class="btn btn-primary">Open app</button>
+        <a href="https://github.com/KeshavBatla/AI-Research-Agent" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <span class="project-status status-live"><span class="status-dot"></span>Deployed</span>
+      <div class="project-name">Movie Recommendation System</div>
+      <p class="project-desc">Collaborative filtering model (fastai on MovieLens 100k) that recommends titles based on viewing history, with a cold-start solution via on-the-fly embedding fitting.</p>
+      <div class="project-tags">
+        <span class="tag">fastai</span><span class="tag">Collaborative Filtering</span>
+        <span class="tag">Python</span><span class="tag">Embeddings</span>
+      </div>
+      <div class="project-links">
+        <a href="https://movie-recommendation-g04h.onrender.com" target="_blank" class="btn btn-primary">Open app</a>
+        <a href="https://github.com/KeshavBatla/movie-recommendation" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <span class="project-status status-live"><span class="status-dot"></span>Top 10 — International Hackathon</span>
+      <div class="project-name">Water Risk Intelligence System</div>
+      <p class="project-desc">Dashboard forecasting water contamination risk 3 hours ahead using real-time sensor data for river monitoring. Ranked in the top 10 internationally.</p>
+      <div class="project-tags">
+        <span class="tag">Time Series</span><span class="tag">Forecasting</span>
+        <span class="tag">Real-time</span><span class="tag">Dashboard</span>
+      </div>
+      <div class="project-links">
+        <a href="https://water-contamination-risk-prediction-sgbirz5vufpn55wjj4q6xa.streamlit.app/" target="_blank" class="btn btn-primary">View project</a>
+        <a href="https://github.com/KeshavBatla/water-contamination-risk-prediction" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card fade-in">
+      <span class="project-status status-live"><span class="status-dot"></span>Kaggle competition</span>
+      <div class="project-name">Paddy Disease Classifier</div>
+      <p class="project-desc">Deep learning image classification model to detect and classify rice paddy leaf diseases, built for a Kaggle competition.</p>
+      <div class="project-tags">
+        <span class="tag">PyTorch</span><span class="tag">Computer Vision</span>
+        <span class="tag">Classification</span><span class="tag">Kaggle</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/KeshavBatla/paddy-disease-classification" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">// capabilities</div>
+  <h2>What I work with</h2>
+  <div class="skills-layout fade-in">
+    <div class="skill-category-list">
+      <button class="skill-tab active" data-panel="ai">AI &amp; Agents</button>
+      <button class="skill-tab" data-panel="backend">Backend</button>
+      <button class="skill-tab" data-panel="ml">ML &amp; Data</button>
+      <button class="skill-tab" data-panel="tools">Tools</button>
+    </div>
+    <div>
+      <div class="skill-panel active" id="panel-ai">
+        <h3>AI &amp; Agentic Systems</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">LangGraph</span><span class="skill-tag">LangChain</span>
+          <span class="skill-tag">Multi-agent Systems</span><span class="skill-tag">RAG Pipelines</span>
+          <span class="skill-tag">Prompt Engineering</span><span class="skill-tag">LLMs</span>
+          <span class="skill-tag">Gemini API</span><span class="skill-tag">Tavily</span>
+          <span class="skill-tag">ChromaDB</span><span class="skill-tag">Pinecone</span>
+          <span class="skill-tag">HuggingFace</span><span class="skill-tag">trustcall</span>
+          <span class="skill-tag">LangSmith</span>
+        </div>
+      </div>
+      <div class="skill-panel" id="panel-backend">
+        <h3>Backend &amp; APIs</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">FastAPI</span><span class="skill-tag">Python</span>
+          <span class="skill-tag">REST APIs</span><span class="skill-tag">Async Programming</span>
+          <span class="skill-tag">Pydantic</span><span class="skill-tag">Gmail API</span>
+          <span class="skill-tag">Google Sheets API</span><span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">OOP</span><span class="skill-tag">SQL</span>
+        </div>
+      </div>
+      <div class="skill-panel" id="panel-ml">
+        <h3>Machine Learning &amp; Data</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Scikit-learn</span><span class="skill-tag">XGBoost</span>
+          <span class="skill-tag">fastai</span><span class="skill-tag">Computer Vision</span>
+          <span class="skill-tag">Deep Learning</span><span class="skill-tag">Time Series</span>
+          <span class="skill-tag">Collaborative Filtering</span><span class="skill-tag">C++</span>
+        </div>
+      </div>
+      <div class="skill-panel" id="panel-tools">
+        <h3>Tools &amp; Deployment</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Streamlit</span><span class="skill-tag">Gradio</span>
+          <span class="skill-tag">GitHub</span><span class="skill-tag">VS Code</span>
+          <span class="skill-tag">HuggingFace Spaces</span><span class="skill-tag">Streamlit Cloud</span>
+          <span class="skill-tag">GitHub Pages</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// background</div>
+  <h2>About me</h2>
+  <div class="about-layout">
+    <div class="about-text fade-in">
+      <p>I'm a third-year CS student at <strong>Thapar University</strong>, building agentic AI systems that actually run — not toy demos. My focus is backend and integration work: LangGraph pipelines, LLM orchestration, vector databases, and third-party API wiring.</p>
+      <p>My biggest project right now is a <strong>multi-agent cold outreach system</strong> that's gone from sketch to working prototype — it's sent real emails to real companies. Before that I shipped a <strong>RAG Q&amp;A assistant</strong> on Streamlit Cloud, debugging session isolation and dependency conflicts in production.</p>
+      <p>Outside code: I've co-founded two e-commerce ventures — a home décor lighting store and a customizable luggage covers brand — handling sourcing, storefronts, and marketing end-to-end. I also serve as <strong>Vice-Proctor</strong> of my university hostel, managing resident welfare and student–administration relations.</p>
+    </div>
+    <div class="about-stats fade-in">
+      <div class="stat-row">
+        <div class="stat-icon">🎓</div>
+        <div><div class="stat-label">Institution</div><div class="stat-value">Thapar University, B.Tech CS</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon">📊</div>
+        <div><div class="stat-label">CGPA</div><div class="stat-value">8.23 / 10</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon">🏆</div>
+        <div><div class="stat-label">Hackathon</div><div class="stat-value">Top 10 internationally</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon">📍</div>
+        <div><div class="stat-label">Location</div><div class="stat-value">India — open to remote</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// let's talk</div>
+  <h2>Let's build something useful.</h2>
+  <p class="contact-sub">I'm currently looking for AI engineering internships and opportunities to work with early-stage startups.</p>
+  <div class="contact-links">
+    <a href="mailto:batlakeshav@gmail.com" class="btn btn-primary">batlakeshav@gmail.com</a>
+    <a href="https://www.linkedin.com/in/keshav-batla-715a38330/" target="_blank" class="btn btn-outline">LinkedIn</a>
+    <a href="https://github.com/KeshavBatla" target="_blank" class="btn btn-outline">GitHub</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Keshav Batla — 2026</span>
+  <span>Built with intent, not a template.</span>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+  /* ── TOAST ── */
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  /* ── TYPED ANIMATION ── */
+  const phrases = ["open_to_work = True", "internship_hunt = active", "building agents daily"];
+  let pi = 0, ci = 0, deleting = false;
+  const typedEl = document.getElementById('typed-line');
+  function type() {
+    const phrase = phrases[pi];
+    if (!deleting) {
+      typedEl.textContent = phrase.slice(0, ++ci);
+      if (ci === phrase.length) { deleting = true; setTimeout(type, 1800); return; }
+    } else {
+      typedEl.textContent = phrase.slice(0, --ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 40 : 70);
+  }
+  type();
+
+  /* ── SKILL TABS ── */
+  document.querySelectorAll('.skill-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.skill-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.skill-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+    });
+  });
+
+  /* ── SCROLL FADE ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  /* ── AGENT GRAPH ANIMATION ── */
+  // nodes and their glow classes, in pipeline order
+  const pipeline = [
+    { id: 'nd-manager',    glow: 'glow-purple', dur: 900 },
+    { id: 'nd-researcher', glow: 'glow-purple', dur: 900 },
+    { id: 'nd-researcher2',glow: 'glow-purple', dur: 700 },
+    { id: 'nd-emailwriter',glow: 'glow-purple', dur: 700 },
+    { id: 'nd-drafter',    glow: 'glow-purple', dur: 700 },
+    { id: 'nd-eval',       glow: 'glow-yellow', dur: 900 },
+    { id: 'nd-approval',   glow: 'glow-green',  dur: 900 },
+    { id: 'nd-send',       glow: 'glow-purple', dur: 900 },
+  ];
+
+  // signal animations on the straight connectors
+  const signals = [
+    { id: 'sig-m-r',   fromY: 0,  toY: 26, color: '#A688FA', duration: 500 },
+    { id: 'sig-e-h',   fromY: 0,  toY: 26, color: '#64C878', duration: 500 },
+    { id: 'sig-h-s',   fromY: 0,  toY: 26, color: '#A688FA', duration: 500 },
+    { id: 'sig-fanout',fromY: 0,  toY: 14, color: '#A688FA', duration: 400 },
+  ];
+
+  function animateDot(dotId, fromY, toY, color, duration) {
+    const dot = document.getElementById(dotId);
+    if (!dot) return;
+    dot.setAttribute('cy', fromY);
+    dot.setAttribute('fill', color);
+    dot.setAttribute('opacity', '1');
+    let start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const cy = fromY + (toY - fromY) * progress;
+      dot.setAttribute('cy', cy);
+      if (progress < 1) requestAnimationFrame(step);
+      else dot.setAttribute('opacity', '0');
+    }
+    requestAnimationFrame(step);
+  }
+
+  let step = 0;
+  const glowClasses = ['glow-purple', 'glow-yellow', 'glow-green'];
+
+  function clearGlows() {
+    pipeline.forEach(n => {
+      const el = document.getElementById(n.id);
+      if (el) glowClasses.forEach(c => el.classList.remove(c));
+    });
+  }
+
+  function runStep() {
+    clearGlows();
+    const current = pipeline[step];
+    const node = document.getElementById(current.id);
+    if (node) node.classList.add(current.glow);
+
+    // fire signal dot on relevant connectors
+    if (step === 0) animateDot('sig-m-r', 0, 26, '#A688FA', 450);
+    if (step === 1) animateDot('sig-fanout', 0, 14, '#A688FA', 380);
+    if (step === 4) {/* agents → eval fan-in, SVG arrows handle visually */}
+    if (step === 5) animateDot('sig-e-h', 0, 26, '#64C878', 450);
+    if (step === 6) animateDot('sig-h-s', 0, 26, '#A688FA', 450);
+
+    step = (step + 1) % pipeline.length;
+    setTimeout(runStep, current.dur + 200);
+  }
+
+  // start after a short delay so page has settled
+  setTimeout(runStep, 1200);
+</script>
+</body>
+</html>
